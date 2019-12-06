@@ -4,12 +4,15 @@
 set -e -u
 set -x
 
-
-folder=$(dirname "$0")
+d_me=$(dirname "$0")
+helpers="$d_me/../helpers"
+in_file="$1"
 
 if [ "$#" -gt 1 ]
 then
-    datalad run --explicit --input "$1" --output "$2" python $folder/../helpers/repack_studyspec.py "$1" "$2"
+    out_file="$2"
 else
-    datalad run --explicit --input "$1" --output "$1" python $folder/../helpers/repack_studyspec.py "$1" "$1"
+    out_file="$1"
 fi
+
+datalad run --explicit --input "$in_file" --output "$out_file" python "$helpers"/repack_studyspec.py "$in_file" "$out_file"
