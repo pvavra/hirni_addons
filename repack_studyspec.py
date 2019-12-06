@@ -1,22 +1,17 @@
 #!/usr/bin/env python
 import sys
 import json as js
-import codecs
+import datalad.support.json_py as jslad
+
 
 in_file = sys.argv[1]
 if len(sys.argv) > 2:
-    out_file_json = sys.argv[2]
+    out_file = sys.argv[2]
 else:
-    out_file_json = in_file
+    out_file = in_file
 
-with open(in_file, mode='rb') as f:
+with open(in_file, mode='r') as f:
     specs = js.load(f)
 
-enc = js.JSONEncoder(separators=(',', ':'))
-
-with open(out_file_json, "wb") as f:
-    jwriter = codecs.getwriter('utf-8')(f)
-    for spec in specs:
-        line = enc.encode(spec)
-        jwriter.writelines(line)
-        f.write(b'\n')
+# write out to file
+jslad.dump2stream(specs, out_file)
