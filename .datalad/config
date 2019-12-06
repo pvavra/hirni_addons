@@ -1,2 +1,13 @@
 [datalad "dataset"]
 	id = badd1ad0-1819-11ea-a1e8-a0369f7c647e
+
+[datalad "locations"]
+	dataset-procedures = procedures
+
+[datalad "procedures.unpack-studyspec"]
+	call-format = "bash {script} {args}"
+	help = "helper to convert studyspec.json into valid-json format"
+
+[datalad "procedures.repack-studyspec"]
+	call-format = "bash {script} {args}"
+	help = "helper to convert valid-json into studyspec.json format"
