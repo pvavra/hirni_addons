@@ -11,3 +11,6 @@
 [datalad "procedures.repack-studyspec"]
 	call-format = "bash {script} {args}"
 	help = "helper to convert valid-json into studyspec.json format"
+
+[datalad "procedures.add_customrules"]
+		help = "add hirni's custom_rules.py script to dataset"
