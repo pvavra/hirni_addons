@@ -59,16 +59,16 @@ class MyDICOM2SpecRules(object):
         modality = None
         comment = ''
         run = None
-        aquisition = None
+        acquisition = None
         if series_dict['SeriesDescription'].startswith("t1"):
             modality = 'T1w'
-            aquisition = 'mprage'
+            acquisition = 'mprage'
         if series_dict['SeriesDescription'].startswith("gre_field_mapping"):
             modality = 'fieldmap'
         if series_dict['SeriesDescription'].startswith("IR-EPI"):
             # c.f. https://www.ncbi.nlm.nih.gov/pubmed/14635150
             modality = 'T1w'
-            aquisition = 'mprage'
+            acquisition = 'mprage'
         if series_dict['SeriesDescription'].startswith("DTI"):
             modality = 'dwi'
         if series_dict['SeriesDescription'].startswith("fMRI_task"):
@@ -90,7 +90,6 @@ class MyDICOM2SpecRules(object):
 
         if series_dict['SeriesDescription'].startswith("AAHead_Scout"):
             comment = "Localizer - will be ignored for BIDS"
-
 
         return {'description': series_dict['SeriesDescription']
                 if "SeriesDescription" in series_dict else '',
