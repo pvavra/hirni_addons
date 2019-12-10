@@ -1,5 +1,6 @@
 """custom rules for dicom2spec for sfb_cuetarget study"""
 
+import json as js
 
 class MyDICOM2SpecRules(object):
 
@@ -64,13 +65,21 @@ class MyDICOM2SpecRules(object):
             modality = 'T1w'
             acquisition = 'mprage'
         if series_dict['SeriesDescription'].startswith("gre_field_mapping"):
-            modality = 'fieldmap'
+            if "M" in series_dict['ImageType']:
+                print('here')
+                modality = 'magnitude' # will infer magnitude1/magnitude2 automatically
+            else:
+                modality = 'phasediff'
         if series_dict['SeriesDescription'].startswith("IR-EPI"):
             # c.f. https://www.ncbi.nlm.nih.gov/pubmed/14635150
             modality = 'T1w'
-            acquisition = 'mprage'
+            acquisition = 'irepi'
         if series_dict['SeriesDescription'].startswith("DTI"):
             modality = 'dwi'
+            if series_dict['SeriesDescription'].endswith("AP"):
+                acquisition = "AP"
+            else:
+                acquisition = "PA"
         if series_dict['SeriesDescription'].startswith("fMRI_task"):
             modality = 'bold'
             task = 'active'
@@ -106,11 +115,15 @@ class MyDICOM2SpecRules(object):
     def series_is_valid(self, series_dict):
         # For all series which this returns `false`, the hirni-spec2bids will
         # skip the conversion to niftis.
+        #
 
         # Skip all localizers
-        valid = not series_dict['SeriesDescription'].startswith("AAHead_Scout")
-        # skip DTI for now
-        valid = valid and not series_dict['SeriesDescription'].startswith("DTI")
+        if series_dict['SeriesDescription'].startswith("AAHead_Scout"):
+            valid = False
+        else:
+            valid = True
+
+
         return valid
 
 
