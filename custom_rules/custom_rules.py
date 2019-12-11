@@ -80,6 +80,9 @@ class MyDICOM2SpecRules(object):
                 acquisition = "AP"
             else:
                 acquisition = "PA"
+        if series_dict['SeriesDescription'].startswith("fMRI_loc"):
+            modality = 'bold'
+            task = 'localizer'
         if series_dict['SeriesDescription'].startswith("fMRI_task"):
             modality = 'bold'
             task = 'active'
@@ -115,16 +118,22 @@ class MyDICOM2SpecRules(object):
     def series_is_valid(self, series_dict):
         # For all series which this returns `false`, the hirni-spec2bids will
         # skip the conversion to niftis.
-        #
 
-        # Skip all localizers
-        if series_dict['SeriesDescription'].startswith("AAHead_Scout"):
+
+        # Skip DTI_.._PA series, as currently the automatic .bvec & .bval
+        # extraction isn't working (header info doesn't match dcm2niix
+        # expectations;
+        # seems related to: https://github.com/rordenlab/dcm2niix/issues/256
+        if series_dict['SeriesDescription'].startswith("DTI") and \
+            series_dict['SeriesDescription'].endswith("PA"):
             valid = False
         else:
             valid = True
 
+        # Skip all localizers
+        if series_dict['SeriesDescription'].startswith("AAHead_Scout"):
+            valid = False
 
         return valid
-
 
 __datalad_hirni_rules = MyDICOM2SpecRules
