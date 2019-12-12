@@ -74,12 +74,14 @@ class MyDICOM2SpecRules(object):
             # c.f. https://www.ncbi.nlm.nih.gov/pubmed/14635150
             modality = 'T1w'
             acquisition = 'irepi'
-        if series_dict['SeriesDescription'].startswith("DTI"):
+        if series_dict['SeriesDescription'].startswith("DTI") and \
+            series_dict['SeriesDescription'].endswith("AP"):
             modality = 'dwi'
-            if series_dict['SeriesDescription'].endswith("AP"):
-                acquisition = "AP"
-            else:
-                acquisition = "PA"
+        if series_dict['SeriesDescription'].startswith("DTI") and \
+            series_dict['SeriesDescription'].endswith("AP"):
+            # the A >> P series does have any diffusion-weighting, and is
+            # essentially only for the correction of distortions for the SE-EPI
+            modality = 'epi'
         if series_dict['SeriesDescription'].startswith("fMRI_loc"):
             modality = 'bold'
             task = 'localizer'
@@ -119,20 +121,11 @@ class MyDICOM2SpecRules(object):
         # For all series which this returns `false`, the hirni-spec2bids will
         # skip the conversion to niftis.
 
-
-        # Skip DTI_.._PA series, as currently the automatic .bvec & .bval
-        # extraction isn't working (header info doesn't match dcm2niix
-        # expectations;
-        # seems related to: https://github.com/rordenlab/dcm2niix/issues/256
-        if series_dict['SeriesDescription'].startswith("DTI") and \
-            series_dict['SeriesDescription'].endswith("PA"):
-            valid = False
-        else:
-            valid = True
-
         # Skip all localizers
         if series_dict['SeriesDescription'].startswith("AAHead_Scout"):
             valid = False
+        else:
+            valid = True
 
         return valid
 
