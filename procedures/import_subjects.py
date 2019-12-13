@@ -32,7 +32,7 @@ key_acq = "acq"
 ds = require_dataset(
     sys.argv[1],
     check_installed=True,
-    purpose='adding custom rule')
+    purpose='import multiple subjects')
 
 file_subject = sys.argv[2]
 source_dir = sys.argv[3]
@@ -58,7 +58,7 @@ for item in list:
                 "already present - skipping".format(item[key_acq]))
             continue
 
-        cmd = ("datalad --pbs-runner condor hirni-import-dcm "
+        cmd = ("datalad hirni-import-dcm "
             "--anon-subject {anon} {s}/{acq}/{acq}*.tar {acq}".format(
             anon=item[key_anon],
             s=source_dir,
