@@ -2,7 +2,7 @@
 Procedure to loop over subjects based on a subjects.json, runnning hirni-dicom2spec
 
 The procedure should be called with the following arguments:
-    datalad run-procedure dcm2specs subjects.json /path/to/source
+    datalad run-procedure dcm2specs subjects.json 
 
 The subjects.json file should be a valid json array of objects, like:
 
