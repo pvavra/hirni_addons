@@ -18,7 +18,6 @@ following template:
 
 datalad --pbs-runner condor hirni-import-dcm \
     --anon-subject {anon-sub} {source}/{acq}/{acq}*.tar {acq}
-
 """
 
 import sys
@@ -51,7 +50,7 @@ for item in list:
 
         # check whether the target dicoms have already been imported, if yes,
         # skip now
-        if os.path.isdir("{ds_path}/{acq}".format(
+        if os.path.isdir("{ds_path}/{acq}/dicoms".format(
             ds_path=ds.path,
             acq=item[key_acq])):
 
