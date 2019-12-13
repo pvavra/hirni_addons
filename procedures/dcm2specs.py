@@ -53,4 +53,4 @@ for item in list:
             ))
         print("[Hirni ADDONS] Running following command:")
         print("[Hirni ADDONS] {}".format(cmd))
-        # os.system(cmd)
+        os.system(cmd)
