@@ -16,5 +16,5 @@
 		help = "add hirni's custom_rules.py script to dataset"
 
 [datalad "procedures.behavior-converter"]
-		call-format = "matlab -nojvm -nodisplay -nosplash -r {script} {ds} {{location}} sub-{{bids-subject}}/func/sub-{{bids-subject}}_task-{{bids-task}}"
+		call-format = "bash {script} {ds} {args}"
 		help = "helper to convert behavioral zip-file into valid events.tsv files"
