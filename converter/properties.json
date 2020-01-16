@@ -1,6 +1,6 @@
 {
   "procedures": {
-    "procedure-name": "behavioral-converter",
+    "procedure-name": "behavior-converter",
     "procedure-call": "bash {script} {ds} {{location}} {{bids-subject}} {{bids-session}}"
   },
   "type": "events_file"
