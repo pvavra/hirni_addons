@@ -66,7 +66,7 @@ end
 
 
 % remove tmpDir
-rmdir dirTmp s
+rmdir(dirTmp,'s')
 
 end
 
