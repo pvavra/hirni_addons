@@ -31,7 +31,7 @@ if exist(fullpathZip ,'file')
 
     %% convert each run to events.tsv
     switch session
-        case '001'
+        case {'001','002','003'}
             assert(length(listing) == 4, ...
                 'wrong number of files found: %i',length(listing));
         case '004'
