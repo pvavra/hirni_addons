@@ -18,3 +18,5 @@
 [datalad "procedures.behavior-converter"]
 		call-format = "bash {script} {ds} {args}"
 		help = "helper to convert behavioral zip-file into valid events.tsv files"
+[datalad "hirni.dicom2spec"]
+	rules = code/hirni_addons/custom_rules/custom_rules.py
