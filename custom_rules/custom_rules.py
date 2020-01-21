@@ -75,7 +75,7 @@ class MyDICOM2SpecRules(object):
             modality = 'T1w'
             acquisition = 'irepi'
         if series_dict['SeriesDescription'].startswith("DTI") and \
-            series_dict['SeriesDescription'].endswith("AP"):
+            series_dict['SeriesDescription'].endswith("PA"):
             modality = 'dwi'
         if series_dict['SeriesDescription'].startswith("DTI") and \
             series_dict['SeriesDescription'].endswith("AP"):
