@@ -12,13 +12,15 @@ else:
 spec_list = jslad.load_stream(in_file)
 
 new_spec_list = []
+session_dict = {"value" : []}
 
 for spec_dict in spec_list:
      if spec_dict["type"] == 'events_file':
          filename = spec_dict["location"]
          session = filename.split("day")[1][0]
-         spec_dict["session"] = session
-         print("for file ''" + filename +"' set session to "+session)
+
+         spec_dict["bids-session"] = {"value" : session.zfill(3)}
+         print("for file ''" + filename +"' set session to "+session.zfill(3))
      new_spec_list.append(spec_dict)
 
 
