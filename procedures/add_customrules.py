@@ -13,8 +13,7 @@ ds = require_dataset(
 # grab config
 cfg = ds.config
 
-# TODO: what to do when a rules is already present? abort? overwrite?
-cfg.add('datalad.hirni.dicom2spec.rules',
+cfg.set('datalad.hirni.dicom2spec.rules',
         # we assume that hirni_addons have been installed into `sourcedata/code/.`
         op.join("code","hirni_addons", "custom_rules", "custom_rules.py"),
         where='dataset')
